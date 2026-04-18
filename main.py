@@ -4,9 +4,7 @@ NetPhantom — Network Packet Sniffer Tool
 Author: Lucky | Cybersecurity Portfolio Project
 
 Usage:
-    python main.py --mode gui
-    python main.py --mode cli --interface eth0 --filter tcp --save out.pcap
-    python main.py --mode cli --interface wlan0 --verbose
+    sudo python main.py
 
 Tool: NetPhantom
 """
@@ -32,9 +30,8 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="netphantom",
         description=(
-            "NetPhantom v1.0 — Professional Dual-Mode Network Packet Sniffer\n"
-            "  GUI: python main.py --mode gui\n"
-            "  CLI: python main.py --mode cli --interface eth0 --filter tcp"
+            "NetPhantom v1.0 — Professional Network Packet Sniffer (Dashboard Edition)\n"
+            "  Usage: sudo python main.py"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -46,33 +43,6 @@ def parse_arguments() -> argparse.Namespace:
         help="Show program's version number and exit"
     )
 
-    parser.add_argument(
-        "--mode", "-m",
-        choices=["gui", "cli"],
-        default="gui",
-        help="Launch mode: gui (default) or cli",
-    )
-    parser.add_argument(
-        "--interface", "-i",
-        default=None,
-        help="Network interface to capture on (e.g., eth0, wlan0, Wi-Fi)",
-    )
-    parser.add_argument(
-        "--filter", "-f",
-        default="",
-        dest="filter",
-        help="BPF filter expression (e.g., 'tcp', 'udp port 53', 'icmp')",
-    )
-    parser.add_argument(
-        "--save", "-s",
-        default=None,
-        help="Save captured packets to a .pcap file",
-    )
-    parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Print full packet details in CLI mode",
-    )
     parser.add_argument(
         "--list-interfaces", "-l",
         action="store_true",
@@ -104,27 +74,13 @@ def main():
             "    → Linux/macOS: Use sudo\n"
         )
 
-    # ── Mode Dispatch ──────────────────────────
-    if args.mode == "gui":
-        try:
-            from gui import run_gui
-            run_gui()
-        except ImportError as e:
-            print(f"[!] GUI dependencies missing: {e}")
-            print("    Install: pip install tk scapy")
-            sys.exit(1)
-
-    elif args.mode == "cli":
-        try:
-            from cli import run_cli
-            run_cli(args)
-        except ImportError as e:
-            print(f"[!] CLI dependencies missing: {e}")
-            print("    Install: pip install scapy colorama")
-            sys.exit(1)
-
-    else:
-        print(f"[!] Unknown mode: {args.mode}")
+    # ── Launch GUI ─────────────────────────────
+    try:
+        from gui import run_gui
+        run_gui()
+    except ImportError as e:
+        print(f"[!] GUI dependencies missing: {e}")
+        print("    Install: pip install tk scapy")
         sys.exit(1)
 
 
