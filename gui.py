@@ -78,7 +78,7 @@ class PacketSnifferGUI:
 
         self._build_ui()
         self._bind_shortcuts()
-        self._show_warning()
+        self.root.after(100, self._show_warning)
 
     # ────────────────────────────────────────────
     #  UI Construction

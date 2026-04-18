@@ -178,15 +178,23 @@ class CaptureEngine:
 #  Utility: List available interfaces
 # ─────────────────────────────────────────────
 def list_interfaces() -> list[str]:
-    """Return a list of available human-readable network interface names."""
+    """Return a list of available human-readable network interface names, prioritizing non-loopback."""
     try:
         from scapy.all import get_working_ifaces
         ifaces = [iface.name for iface in get_working_ifaces() if iface.name]
-        return ifaces if ifaces else [conf.iface]
+        
+        # Sift loopback interfaces to the bottom
+        sorted_ifaces = [i for i in ifaces if "loopback" not in i.lower() and i != "lo"]
+        sorted_ifaces += [i for i in ifaces if "loopback" in i.lower() or i == "lo"]
+        
+        return sorted_ifaces if sorted_ifaces else [conf.iface]
     except Exception:
         # Fallback if get_working_ifaces fails
         from scapy.arch import get_if_list
         try:
-            return get_if_list()
+            raw = get_if_list()
+            sorted_raw = [i for i in raw if "lo" not in i.lower()]
+            sorted_raw += [i for i in raw if "lo" in i.lower()]
+            return sorted_raw
         except Exception:
             return [str(conf.iface)]
