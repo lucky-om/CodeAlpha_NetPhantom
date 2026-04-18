@@ -1,12 +1,12 @@
 """
-main.py - Entry Point / Mode Selector
-NetPhantom — Network Packet Sniffer Tool
+main.py - Entry Point
+NetPhantom — Network Packet Sniffer & Analyzer
 Author: Lucky | Cybersecurity Portfolio Project
 
 Usage:
-    sudo python main.py
-
-Tool: NetPhantom
+    sudo python3 main.py
+    python main.py              (launches GUI directly)
+    python main.py -l           (list interfaces)
 """
 
 import argparse
@@ -15,47 +15,31 @@ import os
 
 
 def check_privileges() -> bool:
-    """Return True if running with elevated privileges."""
-    if os.name == "nt":                     # Windows
+    if os.name == "nt":
         try:
             import ctypes
             return ctypes.windll.shell32.IsUserAnAdmin() != 0
         except Exception:
             return False
-    else:                                   # Linux / macOS
+    else:
         return os.geteuid() == 0
 
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="netphantom",
-        description=(
-            "NetPhantom v1.0 — Professional Network Packet Sniffer (Dashboard Edition)\n"
-            "  Usage: sudo python main.py"
-        ),
+        description="NetPhantom v2.0 — Professional Network Packet Sniffer\n  Usage: sudo python3 main.py",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-
-    parser.add_argument(
-        "--version", "-V",
-        action="version",
-        version="NetPhantom v1.0",
-        help="Show program's version number and exit"
-    )
-
-    parser.add_argument(
-        "--list-interfaces", "-l",
-        action="store_true",
-        help="List available network interfaces and exit",
-    )
-
+    parser.add_argument("--version", "-V", action="version", version="NetPhantom v2.0")
+    parser.add_argument("--list-interfaces", "-l", action="store_true",
+                        help="Print available network interfaces and exit")
     return parser.parse_args()
 
 
 def main():
     args = parse_arguments()
 
-    # ── List interfaces and exit ───────────────
     if args.list_interfaces:
         from capture import list_interfaces
         ifaces = list_interfaces()
@@ -65,22 +49,20 @@ def main():
         print()
         sys.exit(0)
 
-    # ── Privilege Check ────────────────────────
     if not check_privileges():
         print(
-            "\n[!] WARNING: Not running with Administrator/root privileges.\n"
-            "    Packet capture may be limited or fail entirely.\n"
+            "\n[!] Not running with Administrator/root privileges.\n"
+            "    Packet capture may be limited or fail.\n"
+            "    → Linux: sudo python3 main.py\n"
             "    → Windows: Run as Administrator\n"
-            "    → Linux/macOS: Use sudo\n"
         )
 
-    # ── Launch GUI ─────────────────────────────
     try:
         from gui import run_gui
         run_gui()
     except ImportError as e:
-        print(f"[!] GUI dependencies missing: {e}")
-        print("    Install: pip install tk scapy")
+        print(f"[!] GUI dependency missing: {e}")
+        print("    Install: pip install scapy colorama")
         sys.exit(1)
 
 
