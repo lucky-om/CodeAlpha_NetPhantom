@@ -1,4 +1,4 @@
-# ⬡ NetPhantom v1.0 — Professional Network Packet Sniffer
+# ⬡ NetPhantom v2.0 — Professional Network Packet Sniffer
 
 > **A portfolio-ready cybersecurity tool combining CLI power (like tcpdump) and GUI visualization (like Wireshark-lite).**
 
@@ -24,7 +24,6 @@ nETWORK pACKATE/
 ├── capture.py       ← Packet capture engine (Scapy + threading)
 ├── analyzer.py      ← Packet parser + threat detection engine
 ├── gui.py           ← Hacker-style Tkinter GUI dashboard
-├── cli.py           ← Argument-based CLI tool with colorized output
 ├── requirements.txt ← Python dependencies
 └── README.md        ← This file
 ```
@@ -76,40 +75,6 @@ Launches the full **dark hacker-style NetPhantom dashboard** with:
 
 ---
 
-### ⌨️ CLI Mode
-
-```bash
-python main.py --mode cli [OPTIONS]
-```
-
-#### NetPhantom CLI Options
-
-| Flag | Short | Description |
-|------|-------|-------------|
-| `--interface` | `-i` | Network interface (e.g., `eth0`, `Wi-Fi`, `wlan0`) |
-| `--filter` | `-f` | BPF filter expression (e.g., `tcp`, `udp port 53`) |
-| `--save` | `-s` | Auto-save to .pcap file |
-| `--verbose` | `-v` | Print full packet breakdown for each packet |
-| `--list-interfaces` | `-l` | List all available interfaces and exit |
-
-#### Examples
-
-```bash
-# Capture all traffic on wlan0
-python main.py --mode cli --interface wlan0
-
-# Filter only TCP on eth0
-python main.py --mode cli -i eth0 -f tcp
-
-# Capture DNS traffic and save to file
-python main.py --mode cli -i eth0 -f "udp port 53" -s dns_capture.pcap
-
-# Verbose mode (full packet breakdown printed live)
-python main.py --mode cli -i eth0 -v
-
-# List interfaces
-python main.py --list-interfaces
-```
 
 ---
 
@@ -185,7 +150,6 @@ main.py  (NetPhantom Entry Point)
   ├─ parse_arguments()   → argparse
   ├─ check_privileges()  → admin/root check
   ├─ --mode gui          → gui.py → PacketSnifferGUI
-  └─ --mode cli          → cli.py → run_cli()
                                     │
                               capture.py → CaptureEngine
                                     │        ├─ sniff() [background thread]
@@ -273,7 +237,7 @@ Npcap (Windows only) — https://npcap.com
 
 ## 👨‍💻 Author
 
-**Lucky** — Cybersecurity & Python Portfolio Project  
+**Lucky** — Ethical Hacker
 Built as a demonstration of network security tooling, combining:
 - Real-time packet capture (Scapy)
 - Multi-threaded architecture
