@@ -246,6 +246,10 @@ Built as a demonstration of network security tooling, combining:
 
 **Tool Name: NetPhantom**
 
+## 📜 License
+
+This project is licensed under the Apache License 2.0.
+See the LICENSE file for details.
 ---
 
 *"With great packet-sniffing power comes great responsibility."*
