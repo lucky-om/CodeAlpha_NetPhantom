@@ -1,10 +1,31 @@
-Copyright (c) 2026 Lucky (lucky-om). All Rights Reserved.
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
 
-This software and its documentation are the exclusive property of Lucky. 
-No part of this software may be used, copied, modified, merged, published, 
-distributed, sublicensed, or sold without the express prior written 
-permission of the owner.
+Copyright 2026 Lucky
 
-The software is provided "as is" for educational purposes only, without 
-warranty of any kind. In no event shall the author be liable for any 
-claim, damages, or other liability arising from the use of this software.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-----------------------------------------------------------------------
+
+NetPhantom - Network Packet Sniffer and Analyzer
+
+Additional Notice:
+
+This software is intended for educational and ethical cybersecurity use only.
+Users are responsible for complying with all applicable local, national, and
+international laws. Unauthorized network monitoring, interception, or analysis
+may be illegal in your jurisdiction.
+
+The authors are not responsible for any misuse or damage caused by this software.
+Use responsibly and only on networks you own or have explicit permission to test.
