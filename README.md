@@ -1,6 +1,5 @@
 # ⬡ NetPhantom v2.0 — Professional Network Packet Sniffer
 
-> **A portfolio-ready cybersecurity tool combining CLI power (like tcpdump) and GUI visualization (like Wireshark-lite).**
 
 ---
 
